@@ -1,0 +1,3 @@
+[submodule "nemde-worker"]
+	path = nemde-worker
+	url = https://github.com/akxen/nemde-worker
