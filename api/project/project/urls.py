@@ -16,7 +16,6 @@ urlpatterns = [
     path(f"api/{os.environ['DJANGO_ADMIN_KEY']}/", admin.site.urls),
 
     path('api/v1/jobs/', include('jobs.urls')),
-    path('api/v1/data/', include('data.urls')),
     path('api/v1/schema/', SpectacularAPIView.as_view(), name='schema'),
     # Optional UI:
     # path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),

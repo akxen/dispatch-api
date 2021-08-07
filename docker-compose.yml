@@ -17,7 +17,7 @@ services:
   nemde_db:
     image: kubedb/mysql:5.7.25
     env_file:
-      - ./mysql/config/nemde-api-mysql.env
+      - ./mysql/config/nemde-mysql.env
     volumes:
       - ./mysql/data:/var/lib/mysql
       - ./mysql/mysqlconf:/etc/mysql/conf.d
@@ -40,8 +40,7 @@ services:
     volumes:
       - ./nemde-worker/apps:/apps
     env_file:
-      - ./nemde-worker/config/nemde-worker-base.env
-      - ./nemde-worker/config/nemde-worker-development.env
+      - ./nemde-worker/config/nemde-worker.env
     deploy:
       replicas: 3
     restart: on-failure
@@ -56,7 +55,7 @@ services:
     build:
       context: ./dashboard
     env_file:
-      - ./dashboard/config/nemde-dashboard.env
+      - ./dashboard/config/dashboard.env
     volumes:
       - nemde_dashboard_static_data:/rq_dashboard/static
     networks:

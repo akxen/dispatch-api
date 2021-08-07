@@ -27,8 +27,6 @@ ALLOWED_HOSTS_ENV = os.environ.get('DJANGO_ALLOWED_HOSTS')
 if ALLOWED_HOSTS_ENV:
     ALLOWED_HOSTS.extend(ALLOWED_HOSTS_ENV.split(','))
 
-AUTH_USER_MODEL = 'accounts.CustomAccount'
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -47,9 +45,6 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-    'DEFAULT_THROTTLE_RATES': {
-        'subscription': '100/day',
-    }
 }
 
 MIDDLEWARE = [
