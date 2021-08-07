@@ -1,0 +1,47 @@
+<head>
+    {% load static %}
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.0.0/mdb.min.css"
+        integrity="sha512-3IezTrk95L3ES54Xc2nOLQkzSyr0/Mkd4DRJxDQXNYuQupAfxHgR4CsflMVlqjelwlMaB6q5ODM5ppJZimS7dw=="
+        crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.0.0/mdb.rtl.min.css"
+        integrity="sha512-y9JjA299B/FAwn4pN93JWoEUtkXbFzVfXRqvotrpjtJcXumu9XHW9pv/NyMzIf/qWqYlRwrjl4auXiYEAOS5+Q=="
+        crossorigin="anonymous" />
+
+    <link href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/2.2.1/mdb.min.css" rel="stylesheet" />
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Dispatch API</a>
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="/quickstart">Quickstart</a></li>
+                <li class="nav-item"><a class="nav-link" href="/reports">Reports</a></li>
+                <li class="nav-item"><a class="nav-link" href="/api/schema/swagger-ui">API</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<body style="background-color: #ddeef3;">
+
+    {% block content%}
+    {% endblock %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.0.0/mdb.min.js"
+        integrity="sha512-j8XccWZ0cdadrXNufXQDmic9TmvsvUhI/LAeOzu5UnWwsMCsv0VMq3I2qj+HYeFX+3Fv+Z9c+PFYNacSOPlMBw=="
+        crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/2.2.1/mdb.min.js"></script>
+</body>

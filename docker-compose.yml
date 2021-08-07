@@ -1,0 +1,70 @@
+version: '3.7'
+
+services:
+  proxy:
+    build:
+      context: ./proxy
+    volumes:
+      - nemde_dashboard_static_data:/vol/dashboard_static/static
+    ports:
+      - "80:8080"
+    networks:
+      default:
+        aliases:
+          - nemde-api-host
+    restart: on-failure
+
+  nemde_db:
+    image: kubedb/mysql:5.7.25
+    env_file:
+      - ./mysql/config/nemde-api-mysql.env
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/mysqlconf:/etc/mysql/conf.d
+    restart: on-failure
+
+  nemde_api:
+    build:
+      context: ./api
+    volumes:
+      - nemde_static_data:/vol/web
+      - ./api/project:/app
+    env_file:
+      - ./api/config/nemde-api-base.env
+      - ./api/config/nemde-api-development.env
+    restart: on-failure
+
+  nemde_worker:
+    build:
+      context: ./nemde-worker
+    volumes:
+      - ./nemde-worker/apps:/apps
+    env_file:
+      - ./nemde-worker/config/nemde-worker-base.env
+      - ./nemde-worker/config/nemde-worker-development.env
+    deploy:
+      replicas: 3
+    restart: on-failure
+
+  nemde_redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+    restart: on-failure
+
+  nemde_dashboard:
+    build:
+      context: ./dashboard
+    env_file:
+      - ./dashboard/config/nemde-dashboard.env
+    volumes:
+      - nemde_dashboard_static_data:/rq_dashboard/static
+    networks:
+      default:
+        aliases:
+          - 'nemde-dashboard'
+    restart: on-failure
+
+volumes:
+  nemde_static_data:
+  nemde_dashboard_static_data:
