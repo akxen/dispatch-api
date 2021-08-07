@@ -18,4 +18,4 @@ This repository is intended to provide a simple interface allowing users to inte
 | REDIS_DB | 0 |
 | REDIS_QUEUE | public | 
 6. Run `docker-compose up --build` to run services.
-7. Explore the docs at [https://nemde-api-docs.github.io](https://nemde-api-docs.github.io) to explore potential use cases.
+7. See the docs at [https://nemde-api-docs.github.io](https://nemde-api-docs.github.io) to explore potential use cases.
