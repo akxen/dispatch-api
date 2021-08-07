@@ -117,18 +117,6 @@ def check_options_keys(data):
         raise ParseError(detail=f"'label' must be a string: {options.get('label')}")
 
 
-def check_permissions(request, meta):
-    """Check if requestor can access the job"""
-
-    # Extract job creator
-    created_by = meta.get('created_by')
-
-    # Only job creator can access results
-    has_permission = (created_by is not None) and (created_by == request.user.email)
-    if not has_permission:
-        raise PermissionDenied(detail="Permission denied.")
-
-
 class JobCreate(APIView):
 
     def post(self, request, format=None):
@@ -152,7 +140,6 @@ class JobCreate(APIView):
 
         # Metadata for job
         meta = {
-            'created_by': request.user.email,
             'label': request.data.get('options', {}).get('label')
         }
 
@@ -188,7 +175,6 @@ class JobResults(APIView):
 
         # Get job instance and check if caller can access results
         job = get_job(job_id=job_id)
-        check_permissions(request=request, meta=job.meta)
 
         base = [
             ('job_id', job_id),
@@ -234,7 +220,6 @@ class JobStatus(APIView):
 
         # Get job instance and check if caller can access results
         job = get_job(job_id=job_id)
-        check_permissions(request=request, meta=job.meta)
 
         base = [
             ('job_id', job_id),
@@ -285,11 +270,6 @@ class JobStatusList(APIView):
                 meta_str = zlib.decompress(meta_bytes).decode('utf-8')
                 meta = json.loads(meta_str)
 
-                try:
-                    check_permissions(request=request, meta=meta)
-                except PermissionDenied:
-                    continue
-
                 # Extract data
                 j = {k.decode('utf-8'): v.decode('utf-8')
                      for k, v in conn.hscan_iter(k) if k.decode('utf-8') in keys}
@@ -314,9 +294,6 @@ class JobDelete(APIView):
 
         try:
             job = get_job(job_id=job_id)
-
-            # Check permissions
-            check_permissions(request=request, meta=job.meta)
 
             # Delete jobs
             job.cancel()
